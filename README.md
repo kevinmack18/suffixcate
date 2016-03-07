@@ -12,7 +12,7 @@ Based on the article of "[BEMIT: Taking the BEM Naming Convention a Step Further
 
 * > [Demo on CodePen](http://codepen.io/kevinmack18/pen/BjgwER/?editors=1100)
 
-## MIXINGS
+## MIXINS
 Mixin to apply suffixes to selectors. Passing in options will provide different outputs, has up to 6 values that need to be passed:
 
 * `$small`: `$suffixcate_suffix-small` (Defined variable for project's "small breakpoint") - Used as the option to target the "large breakpoint" to add `@small` suffix.
