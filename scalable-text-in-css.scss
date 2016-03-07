@@ -1,0 +1,131 @@
+/*! * [Suffixcate - Responsive Suffixes](https://github.com/kevinmack18/suffixcate) */
+ // * Github: https://github.com/kevinmack18/suffixcate
+ // * Demo: http://codepen.io/kevinmack18/pen/BjgwER/?editors=1100
+ // * Released under the MIT license
+ // * https://github.com/kevinmack18/suffixcate/blob/master/LICENSE
+ // * Version: v0.1.0
+ // * Date: 2016-03-06
+
+$suffixcate_bp: 460px;
+$suffixcate_bp-medium: 768px;
+$suffixcate_bp-all: ($suffixcate_bp $suffixcate_bp-medium);
+$suffixcate_suffix-small: "small";
+$suffixcate_suffix-medium: "medium";
+$suffixcate_suffix-large: "large";
+
+@mixin suffixcate($small: $suffixcate_suffix-small, $medium: $suffixcate_suffix-medium, $large: $suffixcate_suffix-large, $bp: $suffixcate_bp, $base: true, $all: false) {
+	$bps: length($bp);
+	$bp-large: $bp;
+	$bp-medium: $bp-large;
+	$bp-small: $bp-large;
+
+	@if ($base != false) {
+		@content;
+	}
+	
+	@if($bps > 1) {
+		$bp-large: nth($bp, 1);
+		$bp-medium: nth($bp, 2);
+		$bp-small: $bp-large;
+		$small-placeholder: if($small = false, $suffixcate_suffix-small, $small);
+		$medium-placeholder: if($large = false, $suffixcate_suffix-medium, $medium);
+		$large-placeholder: if($large = false, $suffixcate_suffix-large, $large);
+		
+		@if ($all != false) {
+			&\@#{$large-placeholder} {
+				@media screen and (min-width: $bp-large) {
+					@content;
+				}
+			}
+		}
+	
+		@if ($large != false) {
+			&\@#{$medium-placeholder}-#{$large-placeholder} {
+				@media screen and (min-width: $bp-medium) {
+					@content;
+				}
+			}
+		}
+	
+		&\@#{$medium-placeholder} {
+			@media screen and (min-width: #{$bp-small}) and (max-width: $bp-medium) {
+				@content;
+			}
+		}
+
+		@if ($small != false) {
+			&\@#{$small-placeholder}-#{$medium-placeholder} {
+				@media screen and (max-width: $bp-small) {
+					@content;
+				}
+			}
+		}
+
+		@if ($all != false) {
+			&\@#{$small-placeholder} {
+				@media screen and (max-width: $bp-small) {
+					@content;
+				}
+			}
+		}
+
+	} @else {
+		@if ($large != false) {
+			&\@#{$large} {
+				@media screen and (min-width: $bp) {
+					@content;
+				}
+			}
+		}
+
+		@if ($small != false) {
+			&\@#{$small} {
+				@media screen and (max-width: $bp) {
+					@content;
+				}
+			}
+		}
+	}
+}
+
+@mixin suffixcateSmall($small: $suffixcate_suffix-small, $bp: $suffixcate_bp, $base: true) {
+	@include suffixcate($small, false, false, $bp, $base) {
+		@content;
+	}
+}
+
+@mixin suffixcateMedium($medium: $suffixcate_suffix-medium, $bp: $suffixcate_bp-all, $base: true, $all: true) {
+	@include suffixcate(false, $medium, false, $bp, $base, $all) {
+		@content;
+	}
+}
+
+@mixin suffixcateLarge($large: $suffixcate_suffix-large, $bp: $suffixcate_bp, $base: true) {
+	@include suffixcate(false, false, $large, $bp, $base) {
+		@content;
+	}
+}
+
+@mixin suffixcateExtend($selector, $suffix: ($suffixcate_suffix-small $suffixcate_suffix-medium $suffixcate_suffix-large), $base: true) {
+	@if ($base != false) {
+		@extend #{$selector} !optional;
+	}
+
+	@each $name in $suffix {
+		&\@#{$name} {
+			@extend #{$selector}\@#{$name} !optional;
+		}
+
+		&\@#{$name}-#{nth($suffix, 1)} {
+			@extend #{$selector}\@#{$name}-#{nth($suffix, 1)} !optional;
+		}
+
+		&\@#{$name}-#{nth($suffix, 2)} {
+			@extend #{$selector}\@#{$name}-#{nth($suffix, 2)} !optional;
+		}
+
+		&\@#{$name}-#{nth($suffix, 3)} {
+			@extend #{$selector}\@#{$name}-#{nth($suffix, 3)} !optional;
+		}
+	}
+}
