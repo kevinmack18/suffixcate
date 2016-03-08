@@ -3,8 +3,8 @@
  // * Demo: http://codepen.io/kevinmack18/pen/BjgwER/?editors=1100
  // * Released under the MIT license
  // * https://github.com/kevinmack18/suffixcate/blob/master/LICENSE
- // * Version: v0.1.0
- // * Date: 2016-03-06
+ // * Version: v0.1.1
+ // * Date: 2016-03-07
 
 $suffixcate_bp: 460px;
 $suffixcate_bp-medium: 768px;
@@ -22,7 +22,7 @@ $suffixcate_suffix-large: "large";
 	@if ($base != false) {
 		@content;
 	}
-	
+
 	@if($bps > 1) {
 		$bp-large: nth($bp, 1);
 		$bp-medium: nth($bp, 2);
@@ -30,7 +30,7 @@ $suffixcate_suffix-large: "large";
 		$small-placeholder: if($small = false, $suffixcate_suffix-small, $small);
 		$medium-placeholder: if($large = false, $suffixcate_suffix-medium, $medium);
 		$large-placeholder: if($large = false, $suffixcate_suffix-large, $large);
-		
+
 		@if ($all != false) {
 			&\@#{$large-placeholder} {
 				@media screen and (min-width: $bp-large) {
@@ -38,7 +38,7 @@ $suffixcate_suffix-large: "large";
 				}
 			}
 		}
-	
+
 		@if ($large != false) {
 			&\@#{$medium-placeholder}-#{$large-placeholder} {
 				@media screen and (min-width: $bp-medium) {
@@ -46,16 +46,16 @@ $suffixcate_suffix-large: "large";
 				}
 			}
 		}
-	
+
 		&\@#{$medium-placeholder} {
-			@media screen and (min-width: #{$bp-small}) and (max-width: $bp-medium) {
+			@media screen and (min-width: $bp-small) and (max-width: $bp-medium) {
 				@content;
 			}
 		}
 
 		@if ($small != false) {
 			&\@#{$small-placeholder}-#{$medium-placeholder} {
-				@media screen and (max-width: $bp-small) {
+				@media screen and (max-width: $bp-medium) {
 					@content;
 				}
 			}
@@ -111,21 +111,24 @@ $suffixcate_suffix-large: "large";
 		@extend #{$selector} !optional;
 	}
 
-	@each $name in $suffix {
-		&\@#{$name} {
-			@extend #{$selector}\@#{$name} !optional;
-		}
+	@each $selectorSelector in $selector {
 
-		&\@#{$name}-#{nth($suffix, 1)} {
-			@extend #{$selector}\@#{$name}-#{nth($suffix, 1)} !optional;
-		}
+		@each $name in $suffix {
+			&\@#{$name} {
+				@extend #{$selectorSelector}\@#{$name} !optional;
+			}
 
-		&\@#{$name}-#{nth($suffix, 2)} {
-			@extend #{$selector}\@#{$name}-#{nth($suffix, 2)} !optional;
-		}
+			&\@#{$name}-#{nth($suffix, 1)} {
+				@extend #{$selectorSelector}\@#{$name}-#{nth($suffix, 1)} !optional;
+			}
 
-		&\@#{$name}-#{nth($suffix, 3)} {
-			@extend #{$selector}\@#{$name}-#{nth($suffix, 3)} !optional;
+			&\@#{$name}-#{nth($suffix, 2)} {
+				@extend #{$selectorSelector}\@#{$name}-#{nth($suffix, 2)} !optional;
+			}
+
+			&\@#{$name}-#{nth($suffix, 3)} {
+				@extend #{$selectorSelector}\@#{$name}-#{nth($suffix, 3)} !optional;
+			}
 		}
 	}
 }
