@@ -5,7 +5,7 @@ Based on the article of "[BEMIT: Taking the BEM Naming Convention a Step Further
 
 * `@large`: Suffix applied to your targeted "larger" viewports.
 * `@medium`: Suffix applied to your targeted "medium" viewports.
-* `@large`: Suffix applied to your targeted "small" viewports.
+* `@small`: Suffix applied to your targeted "small" viewports.
 * `@medium-large`: Suffix applied to your targeted viewports that occur from "medium to large" viewports.
 * `@small-medium`: Suffix applied to your targeted viewports that occur from "small to medium" viewports.
 
