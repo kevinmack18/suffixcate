@@ -27,9 +27,9 @@ $suffixcate_suffix-large: "large";
 		$bp-large: nth($bp, 1);
 		$bp-medium: nth($bp, 2);
 		$bp-small: $bp-large;
-		$small-placeholder: if($small = false, $suffixcate_suffix-small, $small);
-		$medium-placeholder: if($large = false, $suffixcate_suffix-medium, $medium);
-		$large-placeholder: if($large = false, $suffixcate_suffix-large, $large);
+		$small-placeholder: if($small == false, $suffixcate_suffix-small, $small);
+		$medium-placeholder: if($large == false, $suffixcate_suffix-medium, $medium);
+		$large-placeholder: if($large == false, $suffixcate_suffix-large, $large);
 
 		@if ($all != false) {
 			&\@#{$large-placeholder} {
